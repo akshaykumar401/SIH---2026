@@ -1,0 +1,22 @@
+{% load static %}
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillBridge | {% block title %}{% endblock %}</title>
+    {% tailwind_css %}
+</head>
+<body class="flex flex-col h-screen">
+    <nav class="bg-red-500 w-full h-[60px] flex justify-between items-center px-4">
+        This is Simple Navbar
+    </nav>
+    <main class="flex-grow bg-blue-500 w-full">
+        This is Simple Main
+    </main>
+    <footer class="bg-green-500 w-full h-[100px]">
+        This is Simple Footer
+    </footer>
+</body>
+</html>
