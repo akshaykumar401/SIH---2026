@@ -66,6 +66,54 @@ Empowers colleges with data-driven decision-making tools:
 
 ---
 
+## ⚙️ Installation & Setup
+
+Follow these instructions to get the project up and running on your local machine.
+
+### Prerequisites
+- [Python](https://www.python.org/) (v3.9+)
+- Django (installed via requirements)
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/akshaykumar401/SIH---2026.git
+cd "SIH---2026"
+```
+
+### 2. Set Up the Environment
+```bash
+# Create a virtual environment
+python -m venv .venv
+
+# Activate the virtual environment
+# On Windows:
+.venv\Scripts\activate
+# On macOS/Linux:
+source .venv/bin/activate
+```
+
+### 3. Install Dependencies
+```bash
+# Install required Python packages
+pip install -r requirements.txt
+```
+
+### 4. Run the Application
+```bash
+# Navigate to the main project directory
+cd SkillBridge
+
+# Run database migrations
+python manage.py migrate
+
+# Start the Django development server
+python manage.py runserver
+
+# And another terminal for Tailwind server
+python manage.py tailwind start
+```
+
+---
 ## 🧠 Technical Workflows
 
 ### 1. AI Skill Assessment Loop
