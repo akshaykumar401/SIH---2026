@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/6.1/ref/settings/
 
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -32,9 +35,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    "django.contrib.admin",
-    "django.contrib.auth",
-    "django.contrib.contenttypes",
+    "SkillBridge.apps.MongoAdminConfig",
+    "SkillBridge.apps.MongoAuthConfig",
+    "SkillBridge.apps.MongoContentTypesConfig",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
@@ -88,11 +91,18 @@ WSGI_APPLICATION = "SkillBridge.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
-
+DEFAULT_AUTO_FIELD = 'django_mongodb_backend.fields.ObjectIdAutoField'
+MIGRATION_MODULES = {
+    'admin': 'mongo_migrations.admin',
+    'auth': 'mongo_migrations.auth',
+    'contenttypes': 'mongo_migrations.contenttypes',
+    'sessions': 'mongo_migrations.sessions',
+}
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    'default': {
+        'ENGINE': 'django_mongodb_backend',
+        'NAME': 'skillbridge',
+        'HOST': os.getenv('MONGO_DB_URL'),
     }
 }
 
