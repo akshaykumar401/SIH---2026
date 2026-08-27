@@ -1,0 +1,119 @@
+{% load static %}
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillBridge | Register</title>
+    <link rel="icon" type="image/png" href="{% static 'images/Logo.png' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    {% tailwind_css %}
+</head>
+<body class="flex h-screen w-full bg-white font-sans antialiased overflow-hidden">
+    <!-- Left Side -->
+    <div class="hidden lg:flex lg:w-1/2 bg-[#1e293b] text-white flex-col justify-between p-16 relative overflow-hidden h-full">
+        <!-- Background image and overlay -->
+        <div class="absolute inset-0 bg-slate-900/70 z-10 mix-blend-multiply"></div>
+        <div class="absolute inset-0 bg-cover bg-center z-0 opacity-40 grayscale" style="background-image: url({% static 'images/Register_Image.jpg' %});"></div>
+
+        <div class="z-20 max-w-lg mb-10 mt-auto">
+            <h1 class="text-4xl md:text-5xl font-bold mb-6 text-white tracking-tight leading-tight">Bridging Research &<br>Industry</h1>
+            <p class="text-slate-300 text-[15px] leading-relaxed mb-12">
+                Accelerate innovation by connecting academic rigor with industrial efficiency. Join SkillBridge to access collaborative networks, data-driven insights, and impactful projects.
+            </p>
+            
+            <div class="flex items-center space-x-6 text-slate-300">
+                <i class="fa-solid fa-rocket text-2xl"></i>
+                <div class="w-8 h-[2px] bg-slate-400"></div>
+                <i class="fa-solid fa-shield-halved text-2xl"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Right Side -->
+    <div class="w-full lg:w-1/2 h-full overflow-y-auto flex items-center justify-center p-6 sm:p-12 bg-[#f8fafc]">
+        <div class="w-full max-w-[420px] bg-white rounded-xl shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07)] border border-slate-100 p-8 my-8">
+            <div class="text-center mb-6">
+                <h2 class="text-2xl font-bold text-blue-700 mb-6">SkillBridge</h2>
+                
+                <!-- Tabs -->
+                <div class="flex border-b border-slate-200">
+                    <a href="{% url 'login' %}" class="w-1/2 pb-3 text-center text-[15px] font-medium text-slate-500 hover:text-slate-700 transition-colors">Login</a>
+                    <a href="{% url 'register' %}" class="w-1/2 pb-3 text-center text-[15px] font-medium text-[#0052cc] border-b-[2px] border-[#0052cc]">Sign Up</a>
+                </div>
+            </div>
+
+            <form method="post" enctype="multipart/form-data" class="space-y-4">
+                {% csrf_token %}
+                
+                {% if form.non_field_errors %}
+                <div class="bg-red-50 text-red-600 p-3 rounded text-sm mb-4">
+                    {% for error in form.non_field_errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label for="id_full_name" class="block text-[11px] font-bold text-slate-500 tracking-wider mb-1 uppercase">Full Name</label>
+                        <input type="text" name="full_name" id="id_full_name" 
+                               class="w-full px-3 py-2 rounded border border-slate-200 focus:border-[#0052cc] focus:ring-1 focus:ring-[#0052cc] outline-none transition-all text-slate-700 placeholder-slate-400 text-[14px]" 
+                               placeholder="John Doe" 
+                               value="{{ form.full_name.value|default_if_none:'' }}" required>
+                        {% if form.full_name.errors %}<p class="text-[10px] text-red-500 mt-1">{{ form.full_name.errors.0 }}</p>{% endif %}
+                    </div>
+                    <div>
+                        <label for="id_role" class="block text-[11px] font-bold text-slate-500 tracking-wider mb-1 uppercase">Role</label>
+                        <select name="role" id="id_role" class="w-full px-3 py-2 rounded border border-slate-200 focus:border-[#0052cc] focus:ring-1 focus:ring-[#0052cc] outline-none transition-all text-slate-700 text-[14px]" required>
+                            <option value="student" {% if form.role.value == 'student' %}selected{% endif %}>Student</option>
+                            <option value="faculty" {% if form.role.value == 'faculty' %}selected{% endif %}>Faculty</option>
+                            <option value="industry" {% if form.role.value == 'industry' %}selected{% endif %}>Industry</option>
+                            <option value="institute" {% if form.role.value == 'institute' %}selected{% endif %}>Institute</option>
+                        </select>
+                        {% if form.role.errors %}<p class="text-[10px] text-red-500 mt-1">{{ form.role.errors.0 }}</p>{% endif %}
+                    </div>
+                </div>
+
+                <div>
+                    <label for="id_email" class="block text-[11px] font-bold text-slate-500 tracking-wider mb-1 uppercase">Email Address</label>
+                    <input type="email" name="email" id="id_email" 
+                           class="w-full px-3 py-2 rounded border border-slate-200 focus:border-[#0052cc] focus:ring-1 focus:ring-[#0052cc] outline-none transition-all text-slate-700 placeholder-slate-400 text-[14px]" 
+                           placeholder="name@example.com" 
+                           value="{{ form.email.value|default_if_none:'' }}" required>
+                    {% if form.email.errors %}<p class="text-[10px] text-red-500 mt-1">{{ form.email.errors.0 }}</p>{% endif %}
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label for="id_password" class="block text-[11px] font-bold text-slate-500 tracking-wider mb-1 uppercase">Password</label>
+                        <input type="password" name="password" id="id_password" 
+                               class="w-full px-3 py-2 rounded border border-slate-200 focus:border-[#0052cc] focus:ring-1 focus:ring-[#0052cc] outline-none transition-all text-slate-700 placeholder-slate-400 text-[14px]" 
+                               placeholder="••••••••" required>
+                        {% if form.password.errors %}<p class="text-[10px] text-red-500 mt-1">{{ form.password.errors.0 }}</p>{% endif %}
+                    </div>
+                    <div>
+                        <label for="id_confirm_password" class="block text-[11px] font-bold text-slate-500 tracking-wider mb-1 uppercase">Confirm</label>
+                        <input type="password" name="confirm_password" id="id_confirm_password" 
+                               class="w-full px-3 py-2 rounded border border-slate-200 focus:border-[#0052cc] focus:ring-1 focus:ring-[#0052cc] outline-none transition-all text-slate-700 placeholder-slate-400 text-[14px]" 
+                               placeholder="••••••••" required>
+                        {% if form.confirm_password.errors %}<p class="text-[10px] text-red-500 mt-1">{{ form.confirm_password.errors.0 }}</p>{% endif %}
+                    </div>
+                </div>
+
+                <div>
+                    <label for="id_image" class="block text-[11px] font-bold text-slate-500 tracking-wider mb-1 uppercase">Profile Image (Optional)</label>
+                    <input type="file" name="image" id="id_image" accept="image/*"
+                           class="w-full px-3 py-1.5 rounded border border-slate-200 focus:border-[#0052cc] focus:ring-1 focus:ring-[#0052cc] outline-none transition-all text-slate-700 text-[13px] file:mr-3 file:py-1 file:px-3 file:rounded file:border-0 file:text-[12px] file:font-semibold file:bg-blue-50 file:text-[#0052cc] hover:file:bg-blue-100">
+                    {% if form.image.errors %}<p class="text-[10px] text-red-500 mt-1">{{ form.image.errors.0 }}</p>{% endif %}
+                </div>
+                
+                <button type="submit" class="w-full bg-black text-white font-medium py-3 rounded hover:bg-slate-900 transition-colors text-[15px] mt-4">
+                    Create Account
+                </button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

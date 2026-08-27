@@ -13,6 +13,10 @@ https://docs.djangoproject.com/en/6.1/ref/settings/
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
 
 load_dotenv()
 
@@ -49,12 +53,21 @@ INSTALLED_APPS = [
     "tailwind",
     "theme",
     "django_browser_reload",
+    "user",
+    "cloudinary",
 ]
 
 TAILWIND_APP_NAME = "theme"
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
+
+cloudinary.config(
+    cloud_name = os.getenv("YOUR_CLOUD_NAME"),
+    api_key = os.getenv("YOUR_API_KEY"),
+    api_secret = os.getenv("YOUR_API_SECRET"),
+    secure = True
+)
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -158,3 +171,7 @@ MAILERS = {
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+LOGIN_URL = '/accounts/login'
+LOGIN_REDIRECT_URL = '/student/'
+LOGOUT_REDIRECT_URL = '/'

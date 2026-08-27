@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SkillBridge | {% block title %}{% endblock %}</title>
+    <link rel="icon" type="image/png" href="{% static 'images/Logo.png' %}">
     {% tailwind_css %}
 </head>
 <body class="flex flex-col h-screen">
@@ -13,7 +14,8 @@
         This is Simple Navbar
     </nav>
     <main class="flex-grow bg-blue-500 w-full">
-        This is Simple Main
+        {% block content %}
+        {% endblock %}
     </main>
     <footer class="bg-green-500 w-full h-[100px]">
         This is Simple Footer

@@ -28,7 +28,9 @@ urlpatterns = [
     path("faculty/", include("faculty.urls")),
     path("industry/", include("industry.urls")),
     path("institution/", include("instution.urls")),
+    path("user/", include("user.urls")),
 
 
+    path("accounts/", include("django.contrib.auth.urls")),
     path("__debug__/", include("django_browser_reload.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
